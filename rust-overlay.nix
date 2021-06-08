@@ -257,7 +257,7 @@ let
     let
       inherit (builtins) elemAt;
       inherit (super) makeOverridable;
-      inherit (super.lib) flip mapAttrs;
+      inherit (super.lib) flip mapAttrs platforms;
       pkgs = fromTOML (builtins.readFile manifest);
     in
     flip mapAttrs pkgs.pkg (name: pkg:
@@ -293,7 +293,7 @@ let
             # And get a fully working Rust compiler, with the stdenv linker.
             propagatedBuildInputs = [ stdenv.cc ];
 
-            meta.platforms = stdenv.lib.platforms.all;
+            meta.platforms = platforms.all;
           }
       ) { extensions = []; targets = []; targetExtensions = []; }
     );
